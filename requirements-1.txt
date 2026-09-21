@@ -1,6 +1,0 @@
-pyrofork>=2.2.20
-tgcrypto
-yt-dlp[default]
-python-dotenv
-aiohttp
-psutil
