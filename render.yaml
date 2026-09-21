@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: skr-bot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && apt-get update && apt-get install -y ffmpeg
+    startCommand: python -m bot
+    envVars:
+      - key: API_ID
+        sync: false
+      - key: API_HASH
+        sync: false
+      - key: BOT_TOKEN
+        sync: false
+      - key: OWNER_ID
+        sync: false
+      - key: UPLOAD_CHAT_ID
+        sync: false
+      - key: ENABLE_COMPRESSION
+        value: "true"
+      - key: COMPRESS_HEIGHT
+        value: "480"
+      - key: COMPRESS_CRF
+        value: "28"
+      - key: PORT
+        value: "8080"
+      - key: MAX_QUEUE
+        value: "10"
+      - key: MAX_FILE_GB
+        value: "2"
