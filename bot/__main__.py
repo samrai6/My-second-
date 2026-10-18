@@ -57,9 +57,12 @@ async def clear_webhook_if_configured():
                 logger.info("Telegram webhook removed successfully; pending updates were preserved")
             else:
                 logger.error("Failed to remove Telegram webhook: %s", result.get("description", "unknown error"))
-    except Exception:
-        # Do not print request URLs because they contain the bot token.
-        logger.exception("Could not check/remove Telegram webhook; continuing startup")
+    except Exception as exc:
+        # Request exceptions can contain the full URL, including the bot token.
+        logger.warning(
+            "Could not check/remove Telegram webhook (%s); continuing startup",
+            type(exc).__name__,
+        )
 
 
 async def main():
