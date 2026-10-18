@@ -13,6 +13,6 @@ COPY requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-RUN chmod +x /app/start.sh
+RUN chmod +x /app/start.sh && python -m compileall -q /app/bot
 
 CMD ["/app/start.sh"]
