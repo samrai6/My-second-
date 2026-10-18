@@ -1,8 +1,12 @@
+import logging
+
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from .config import API_ID, API_HASH, BOT_TOKEN
 from .queue import add_url_job, add_media_job, queue_size, cancel_user_job
 from .utils import human_bytes, memory_text
+
+logger = logging.getLogger(__name__)
 
 app = Client(
     "skr_bot",
@@ -14,6 +18,7 @@ app = Client(
 
 @app.on_message(filters.command("start"))
 async def start(_, m: Message):
+    logger.info("Received /start from user_id=%s chat_id=%s", getattr(m.from_user, "id", None), m.chat.id)
     await m.reply_text(
         "🎬 **SKR Bot**\n\n"
         "Send a public video URL to download it.\n"
