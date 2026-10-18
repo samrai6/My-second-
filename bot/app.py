@@ -8,6 +8,14 @@ from .utils import human_bytes, memory_text
 
 logger = logging.getLogger(__name__)
 
+app = Client(
+    "skr_bot",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=BOT_TOKEN,
+    workers=4,
+)
+
 # Debug incoming Telegram messages before normal command handlers.
 @app.on_message(filters.all, group=-1)
 async def log_incoming_update(_, m: Message):
@@ -17,14 +25,6 @@ async def log_incoming_update(_, m: Message):
         getattr(m.from_user, "id", None),
         (getattr(m, "text", None) or getattr(m, "caption", None) or "")[:100],
     )
-
-app = Client(
-    "skr_bot",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=BOT_TOKEN,
-    workers=4,
-)
 
 @app.on_message(filters.command("start"))
 async def start(_, m: Message):
